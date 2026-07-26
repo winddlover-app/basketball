@@ -1,0 +1,17 @@
+# Local render and QA intermediates
+AGENTS.md
+prd_*_pages*/
+prd_word_pages*/
+*.pdf
+*_check.docx
+*_source_read.docx
+source_requirements.docx
+prd_output_check.docx
+
+# Python/cache noise
+__pycache__/
+*.pyc
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
