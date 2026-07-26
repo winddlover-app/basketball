@@ -1,16 +1,16 @@
 :root {
-  color-scheme: dark;
-  --bg: #080911;
-  --panel: #12131e;
-  --panel-2: #191b29;
-  --line: rgba(255, 255, 255, 0.1);
-  --muted: #9da2b6;
-  --text: #f8f8fb;
-  --hot: #ff5a1f;
-  --hot-2: #ff8b35;
-  --green: #42d678;
-  --gold: #ffca4f;
-  --blue: #58a6ff;
+  color-scheme: light;
+  --bg: #f6fbff;
+  --panel: #ffffff;
+  --panel-2: #eef7ff;
+  --line: rgba(29, 58, 93, 0.12);
+  --muted: #66758a;
+  --text: #102033;
+  --hot: #ff6b2b;
+  --hot-2: #ff9f1c;
+  --green: #23bf71;
+  --gold: #ffc247;
+  --blue: #1f8cff;
   --radius: 8px;
 }
 
@@ -32,8 +32,9 @@ button {
 .app-screen {
   min-height: 100%;
   background:
-    radial-gradient(circle at 78% -10%, rgba(255, 90, 31, 0.18), transparent 34%),
-    linear-gradient(180deg, #10111c 0%, var(--bg) 28%, #080911 100%);
+    radial-gradient(circle at 78% -10%, rgba(31, 140, 255, 0.22), transparent 32%),
+    radial-gradient(circle at 8% 12%, rgba(255, 194, 71, 0.26), transparent 28%),
+    linear-gradient(180deg, #f8fdff 0%, #eef8ff 42%, #fffaf1 100%);
 }
 
 .app-screen .mobile-scroll {
@@ -87,7 +88,7 @@ button {
 .header-actions button,
 .search-row button {
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.82);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   color: var(--text);
@@ -105,7 +106,7 @@ button {
 }
 
 .role-rail button {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.86);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   color: var(--text);
@@ -149,10 +150,10 @@ button {
 
 .screen-chip,
 .category-chip {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.86);
   border: 1px solid var(--line);
   border-radius: 999px;
-  color: #c6cad9;
+  color: #607086;
   flex: 0 0 auto;
   font-size: 12px;
   font-weight: 800;
@@ -164,7 +165,7 @@ button {
 .category-chip.active {
   background: var(--hot);
   border-color: var(--hot);
-  color: #160905;
+  color: #ffffff;
 }
 
 .screen-content {
@@ -186,11 +187,18 @@ button {
 .detail-media {
   background-position: center;
   background-size: cover;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: var(--radius);
   min-height: 318px;
   overflow: hidden;
   padding: 16px;
+}
+
+.hero,
+.training-feature,
+.detail-media,
+.login-hero {
+  color: #ffffff;
 }
 
 .hero {
@@ -227,6 +235,13 @@ button {
 
 .hero p,
 .training-feature p,
+.login-hero p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+}
+
 .detail-panel p,
 .coach-hero p,
 .admin-hero p,
@@ -237,7 +252,7 @@ button {
 .upload-card p,
 .review-card p,
 .profile-card p {
-  color: #c3c7d6;
+  color: var(--muted);
   font-size: 13px;
   line-height: 1.45;
   margin: 0;
@@ -245,10 +260,10 @@ button {
 
 .pill {
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.74);
   border: 1px solid var(--line);
   border-radius: 999px;
-  color: #e8eaf2;
+  color: #24405f;
   display: inline-flex;
   font-size: 10px;
   font-weight: 900;
@@ -258,22 +273,22 @@ button {
 }
 
 .pill.hot {
-  background: rgba(255, 90, 31, 0.18);
+  background: rgba(255, 107, 43, 0.14);
   border-color: rgba(255, 90, 31, 0.55);
-  color: #ffb190;
+  color: #d94b13;
 }
 
 .pill.green {
-  background: rgba(66, 214, 120, 0.16);
-  border-color: rgba(66, 214, 120, 0.45);
-  color: #8cf3ae;
+  background: rgba(35, 191, 113, 0.14);
+  border-color: rgba(35, 191, 113, 0.42);
+  color: #087d43;
 }
 
 .action-button {
   align-items: center;
   border: 0;
   border-radius: var(--radius);
-  color: #180904;
+  color: #ffffff;
   display: flex;
   font-size: 14px;
   font-weight: 950;
@@ -289,15 +304,15 @@ button {
 }
 
 .action-button.dark {
-  background: #202233;
+  background: #eaf4ff;
   border: 1px solid var(--line);
-  color: var(--text);
+  color: #17304c;
 }
 
 .action-button.ghost {
   background: transparent;
   border: 1px solid var(--line);
-  color: var(--text);
+  color: #17304c;
 }
 
 .metrics-grid {
@@ -307,7 +322,7 @@ button {
 }
 
 .metric-card {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   min-width: 0;
@@ -397,7 +412,7 @@ button {
 .consent-row,
 .admin-hero,
 .coach-hero {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
@@ -454,7 +469,7 @@ button {
 .task-icon,
 .avatar {
   align-items: center;
-  background: #252738;
+  background: #eaf4ff;
   border-radius: var(--radius);
   color: var(--hot-2);
   display: grid;
@@ -465,7 +480,7 @@ button {
 }
 
 .task-card small {
-  color: var(--gold);
+  color: #c26b00;
   font-size: 11px;
   font-weight: 900;
   margin-left: auto;
@@ -481,7 +496,7 @@ button {
 
 .search-row input,
 .assign input {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   color: var(--text);
@@ -497,7 +512,7 @@ button {
 }
 
 .course-card {
-  background: #12131d;
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   display: grid;
@@ -570,7 +585,7 @@ button {
 
 .detail-panel,
 .checkout {
-  background: rgba(18, 19, 30, 0.72);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 16px;
@@ -618,7 +633,7 @@ button {
 .date-badge {
   background: var(--hot);
   border-radius: var(--radius);
-  color: #170904;
+  color: #ffffff;
   flex: 0 0 72px;
   font-size: 11px;
   font-weight: 950;
@@ -640,7 +655,7 @@ button {
 
 .step {
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(31, 140, 255, 0.08);
   border-radius: var(--radius);
   display: flex;
   gap: 10px;
@@ -651,7 +666,7 @@ button {
   align-items: center;
   background: var(--hot);
   border-radius: 50%;
-  color: #170904;
+  color: #ffffff;
   display: grid;
   flex: 0 0 auto;
   font-size: 12px;
@@ -664,8 +679,8 @@ button {
 .upload-card,
 .analysis-orbit {
   align-items: center;
-  background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0 8px, rgba(255, 255, 255, 0.03) 8px 16px);
-  border: 1px dashed rgba(255, 255, 255, 0.28);
+  background: repeating-linear-gradient(135deg, rgba(31, 140, 255, 0.08) 0 8px, rgba(255, 255, 255, 0.9) 8px 16px);
+  border: 1px dashed rgba(31, 140, 255, 0.34);
   border-radius: var(--radius);
   display: grid;
   gap: 12px;
@@ -693,7 +708,7 @@ button {
 
 .progress-row {
   align-items: center;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: var(--radius);
   display: flex;
   gap: 10px;
@@ -701,7 +716,7 @@ button {
 }
 
 .progress-row svg {
-  color: #515669;
+  color: #a7b5c8;
 }
 
 .progress-row svg.done {
@@ -710,7 +725,7 @@ button {
 
 .report-hero {
   align-items: center;
-  background: linear-gradient(135deg, rgba(255, 90, 31, 0.95), rgba(255, 202, 79, 0.82));
+  background: linear-gradient(135deg, rgba(255, 107, 43, 0.96), rgba(255, 194, 71, 0.86));
   border-radius: var(--radius);
   color: #170904;
   display: flex;
@@ -778,7 +793,7 @@ button {
 
 .bars {
   align-items: end;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(31, 140, 255, 0.07);
   border-radius: var(--radius);
   display: grid;
   gap: 8px;
@@ -796,8 +811,8 @@ button {
 .coach-hero,
 .admin-hero {
   background:
-    linear-gradient(135deg, rgba(255, 90, 31, 0.2), rgba(88, 166, 255, 0.08)),
-    #12131e;
+    linear-gradient(135deg, rgba(255, 194, 71, 0.34), rgba(31, 140, 255, 0.12)),
+    #ffffff;
 }
 
 .coach-hero h2,
@@ -822,7 +837,7 @@ button {
 }
 
 .avatar {
-  color: var(--text);
+  color: #17304c;
   font-weight: 950;
 }
 
@@ -851,7 +866,7 @@ button {
 .attendance-row button,
 .review-actions button,
 .template-grid button {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.94);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   color: var(--text);
@@ -866,7 +881,7 @@ button {
 .review-actions button:last-child {
   background: var(--hot);
   border-color: var(--hot);
-  color: #170904;
+  color: #ffffff;
 }
 
 .template-grid {
@@ -905,8 +920,8 @@ button {
 
 .register-hero {
   background:
-    linear-gradient(135deg, rgba(255, 90, 31, 0.24), rgba(66, 214, 120, 0.08)),
-    #12131e;
+    linear-gradient(135deg, rgba(255, 194, 71, 0.34), rgba(35, 191, 113, 0.1)),
+    #ffffff;
 }
 
 .register-hero h2 {
@@ -922,7 +937,7 @@ button {
 }
 
 .signup-role-grid button {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   color: var(--text);
@@ -932,7 +947,7 @@ button {
 }
 
 .signup-role-grid button.selected {
-  background: rgba(255, 90, 31, 0.18);
+  background: rgba(255, 107, 43, 0.12);
   border-color: var(--hot);
 }
 
@@ -954,7 +969,7 @@ button {
 }
 
 .form-stack {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   display: grid;
@@ -963,7 +978,7 @@ button {
 }
 
 .form-stack input {
-  background: rgba(255, 255, 255, 0.08);
+  background: #f7fbff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   color: var(--text);
@@ -984,7 +999,7 @@ button {
 }
 
 .consent-row span {
-  color: #c3c7d6;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.35;
 }
@@ -998,7 +1013,7 @@ button {
 
 .login-options label {
   align-items: center;
-  color: #c3c7d6;
+  color: var(--muted);
   display: flex;
   font-size: 12px;
   gap: 7px;
@@ -1029,8 +1044,8 @@ button {
 
 .bottom-nav {
   align-items: center;
-  background: rgba(10, 11, 19, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid rgba(29, 58, 93, 0.12);
   border-radius: 18px;
   bottom: calc(var(--mobile-safe-area-height) + 10px);
   display: grid;
@@ -1039,6 +1054,7 @@ button {
   margin: 0 14px 10px;
   padding: 8px;
   position: sticky;
+  box-shadow: 0 12px 32px rgba(29, 58, 93, 0.16);
   z-index: 20;
 }
 
@@ -1058,8 +1074,8 @@ button {
 }
 
 .bottom-nav button.active {
-  background: rgba(255, 90, 31, 0.14);
-  color: var(--hot-2);
+  background: rgba(255, 107, 43, 0.12);
+  color: #e85a1a;
 }
 
 .bottom-nav svg {
