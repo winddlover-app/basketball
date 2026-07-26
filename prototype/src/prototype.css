@@ -173,7 +173,7 @@ button {
   flex: 1;
   align-content: start;
   min-height: 430px;
-  padding: 8px 18px 18px;
+  padding: 8px 18px 112px;
 }
 
 .hero,
@@ -225,6 +225,7 @@ button {
 .detail-panel p,
 .coach-hero p,
 .admin-hero p,
+.register-hero p,
 .report-hero p,
 .coach-note p,
 .pay-card p,
@@ -335,6 +336,7 @@ button {
 .attendance,
 .assign,
 .review,
+.register,
 .messages,
 .profile,
 .course-list,
@@ -384,6 +386,8 @@ button {
 .ops-row,
 .message-row,
 .profile-card,
+.register-hero,
+.consent-row,
 .admin-hero,
 .coach-hero {
   background: rgba(255, 255, 255, 0.07);
@@ -727,6 +731,7 @@ button {
 .trend-card,
 .admin-hero,
 .coach-hero,
+.register-hero,
 .profile-card {
   padding: 16px;
 }
@@ -861,6 +866,101 @@ button {
 
 .profile-card h2 {
   margin: 10px 0 4px;
+}
+
+.register-hero {
+  background:
+    linear-gradient(135deg, rgba(255, 90, 31, 0.24), rgba(66, 214, 120, 0.08)),
+    #12131e;
+}
+
+.register-hero h2 {
+  font-size: 30px;
+  line-height: 1;
+  margin: 12px 0 8px;
+}
+
+.signup-role-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.signup-role-grid button {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--text);
+  min-height: 74px;
+  padding: 10px 8px;
+  text-align: left;
+}
+
+.signup-role-grid button.selected {
+  background: rgba(255, 90, 31, 0.18);
+  border-color: var(--hot);
+}
+
+.signup-role-grid strong,
+.signup-role-grid span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.signup-role-grid strong {
+  font-size: 13px;
+}
+
+.signup-role-grid span {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.form-stack {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+}
+
+.form-stack input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--text);
+  height: 44px;
+}
+
+.consent-row {
+  align-items: flex-start;
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+}
+
+.consent-row input {
+  accent-color: var(--hot);
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.consent-row span {
+  color: #c3c7d6;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.signin-link {
+  background: transparent;
+  border: 0;
+  color: var(--hot-2);
+  font-size: 13px;
+  font-weight: 900;
+  min-height: 38px;
 }
 
 .bottom-nav {

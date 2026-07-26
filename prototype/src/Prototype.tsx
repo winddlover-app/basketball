@@ -42,6 +42,7 @@ type Screen =
   | "assignTask"
   | "review"
   | "admin"
+  | "register"
   | "messages"
   | "profile";
 
@@ -121,11 +122,12 @@ const screensByRole: Record<Role, Screen[]> = {
     "analysis",
     "report",
     "history",
+    "register",
     "messages",
     "profile",
   ],
-  coach: ["coachToday", "roster", "attendance", "assignTask", "review", "messages", "profile"],
-  admin: ["admin", "courses", "schedule", "report", "messages", "profile"],
+  coach: ["coachToday", "roster", "attendance", "assignTask", "review", "register", "messages", "profile"],
+  admin: ["admin", "courses", "schedule", "report", "register", "messages", "profile"],
 };
 
 function pageTitle(screen: Screen, role: Role) {
@@ -149,6 +151,7 @@ function pageTitle(screen: Screen, role: Role) {
     assignTask: "Assign Task",
     review: "Review Center",
     admin: "Ops Dashboard",
+    register: "Create Account",
     messages: "Messages",
     profile: "Profile",
   };
@@ -668,13 +671,58 @@ function Messages() {
   );
 }
 
-function Profile({ role }: { role: Role }) {
+function Register({ role, setRole, setScreen }: { role: Role; setRole: (role: Role) => void; setScreen: (screen: Screen) => void }) {
+  return (
+    <section className="register">
+      <div className="register-hero">
+        <Pill tone="hot">New member</Pill>
+        <h2>Create your Basketball Camp account</h2>
+        <p>Register as a parent, student, coach, or institution operator. The right workspace opens after approval.</p>
+      </div>
+      <div className="signup-role-grid" aria-label="Account type">
+        {roles.map((item) => (
+          <button
+            className={item.id === role ? "selected" : ""}
+            key={item.id}
+            onClick={() => setRole(item.id)}
+            type="button"
+          >
+            <strong>{item.label}</strong>
+            <span>{item.sub}</span>
+          </button>
+        ))}
+      </div>
+      <div className="form-stack">
+        <MobileTextField id="signup-name" label="Full name" placeholder="Alex Carter" />
+        <MobileTextField id="signup-email" label="Email" placeholder="alex@example.com" />
+        <MobileTextField id="signup-phone" label="Phone" placeholder="+1 555 012 0248" />
+        <MobileTextField id="signup-password" label="Password" placeholder="Create a password" />
+        {role === "student" ? <MobileTextField id="signup-student" label="Student name" placeholder="Mason Carter" /> : null}
+        {role === "coach" ? <MobileTextField id="signup-cert" label="Coach credential" placeholder="USAB certificate or experience" /> : null}
+        {role === "admin" ? <MobileTextField id="signup-org" label="Organization" placeholder="Basketball Camp Academy" /> : null}
+      </div>
+      <label className="consent-row">
+        <input defaultChecked type="checkbox" />
+        <span>I agree to receive course, training, and safety notifications.</span>
+      </label>
+      <ActionButton icon={CheckCircledIcon} onClick={() => setScreen(role === "coach" ? "coachToday" : role === "admin" ? "admin" : "home")}>
+        Create Account
+      </ActionButton>
+      <button className="signin-link" onClick={() => setScreen("profile")} type="button">
+        Already have an account? Sign in
+      </button>
+    </section>
+  );
+}
+
+function Profile({ role, setScreen }: { role: Role; setScreen: (screen: Screen) => void }) {
   return (
     <section className="profile">
       <div className="profile-card">
         <div className="avatar big">{role === "coach" ? "A" : role === "admin" ? "O" : "M"}</div>
         <h2>{role === "coach" ? "Coach Ava" : role === "admin" ? "Ops Manager" : "Mason Family"}</h2>
         <p>{role === "student" ? "Parent account with linked student profile" : "Secure institution workspace"}</p>
+        <ActionButton icon={PersonIcon} onClick={() => setScreen("register")} variant="dark">Create New Account</ActionButton>
       </div>
       {["Account Details", "Linked Students", "Payment Methods", "Privacy & Consent", "Support"].map((item) => (
         <article className="ops-row" key={item}>
@@ -695,7 +743,7 @@ export default function Prototype() {
     if (["courses", "courseDetail", "checkout"].includes(screen)) return "courses";
     if (["train", "taskDetail", "upload", "analysis"].includes(screen)) return "train";
     if (["report", "history", "review"].includes(screen)) return "reports";
-    if (["profile", "messages"].includes(screen)) return "profile";
+    if (["profile", "messages", "register"].includes(screen)) return "profile";
     return "home";
   }, [screen]);
 
@@ -739,10 +787,12 @@ export default function Prototype() {
         return <ReviewCenter setScreen={setScreen} />;
       case "admin":
         return <AdminDashboard setScreen={setScreen} />;
+      case "register":
+        return <Register role={role} setRole={setRole} setScreen={setScreen} />;
       case "messages":
         return <Messages />;
       case "profile":
-        return <Profile role={role} />;
+        return <Profile role={role} setScreen={setScreen} />;
     }
   })();
 
