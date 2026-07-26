@@ -690,7 +690,7 @@ function Login({ setScreen }: { setScreen: (screen: Screen) => void }) {
         <h2>Basketball Camp</h2>
       </div>
       <div className="form-stack">
-        <MobileTextField id="login-email" label="Email or phone" placeholder="alex@example.com" />
+        <MobileTextField id="login-email" label="Email" placeholder="alex@example.com" />
         <MobileTextField id="login-password" label="Password" placeholder="Enter password" />
         <div className="login-options">
           <label>
