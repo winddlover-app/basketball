@@ -63,6 +63,8 @@ const gymImage =
   "https://images.unsplash.com/photo-1505666287802-931dc83948e9?auto=format&fit=crop&w=1200&q=85";
 const courtImage =
   "https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&w=1200&q=85";
+const youthTrainingImage =
+  "https://unsplash.com/photos/jM0sC7ttmRE/download?force=true&w=1200";
 
 const roles: Array<{ id: Role; label: string; sub: string }> = [
   { id: "student", label: "Student", sub: "Parent view included" },
@@ -684,10 +686,9 @@ function Messages() {
 function Login({ setScreen }: { setScreen: (screen: Screen) => void }) {
   return (
     <section className="login">
-      <div className="login-hero" style={{ backgroundImage: `linear-gradient(180deg, rgba(8,9,16,.18), rgba(8,9,16,.94)), url(${heroImage})` }}>
-        <Pill tone="hot">Basketball Camp</Pill>
-        <h2>Welcome back to training.</h2>
-        <p>Sign in to view classes, training tasks, video analysis, and coach feedback.</p>
+      <div className="login-hero" style={{ backgroundImage: `linear-gradient(180deg, rgba(8,9,16,.12), rgba(8,9,16,.9)), url(${youthTrainingImage})` }}>
+        <h2>Basketball Camp</h2>
+        <Pill tone="hot">Sign In</Pill>
       </div>
       <div className="form-stack">
         <MobileTextField id="login-email" label="Email or phone" placeholder="alex@example.com" />

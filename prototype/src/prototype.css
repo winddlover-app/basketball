@@ -754,12 +754,12 @@ button {
   background-size: cover;
   display: grid;
   gap: 10px;
-  min-height: 320px;
+  min-height: 300px;
   align-content: end;
 }
 
 .login-hero h2 {
-  font-size: 38px;
+  font-size: 36px;
   line-height: 0.96;
   margin: 0;
 }
