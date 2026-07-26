@@ -688,7 +688,6 @@ function Login({ setScreen }: { setScreen: (screen: Screen) => void }) {
     <section className="login">
       <div className="login-hero" style={{ backgroundImage: `linear-gradient(180deg, rgba(8,9,16,.12), rgba(8,9,16,.9)), url(${youthTrainingImage})` }}>
         <h2>Basketball Camp</h2>
-        <Pill tone="hot">Sign In</Pill>
       </div>
       <div className="form-stack">
         <MobileTextField id="login-email" label="Email or phone" placeholder="alex@example.com" />
