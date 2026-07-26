@@ -25,6 +25,7 @@ import { Carousel, MobileScroll, MobileTextField } from "./mobile";
 type Role = "student" | "coach" | "admin";
 type Tab = "home" | "courses" | "train" | "reports" | "profile";
 type Screen =
+  | "login"
   | "home"
   | "courses"
   | "courseDetail"
@@ -112,6 +113,7 @@ const trainingTasks = [
 const screensByRole: Record<Role, Screen[]> = {
   student: [
     "home",
+    "login",
     "courses",
     "courseDetail",
     "checkout",
@@ -126,14 +128,15 @@ const screensByRole: Record<Role, Screen[]> = {
     "messages",
     "profile",
   ],
-  coach: ["coachToday", "roster", "attendance", "assignTask", "review", "register", "messages", "profile"],
-  admin: ["admin", "courses", "schedule", "report", "register", "messages", "profile"],
+  coach: ["coachToday", "login", "roster", "attendance", "assignTask", "review", "register", "messages", "profile"],
+  admin: ["admin", "login", "courses", "schedule", "report", "register", "messages", "profile"],
 };
 
 function pageTitle(screen: Screen, role: Role) {
   if (role === "coach" && screen === "home") return "Coach Today";
   if (role === "admin" && screen === "home") return "Operations";
   const titles: Record<Screen, string> = {
+    login: "Sign In",
     home: "Basketball Camp",
     courses: "Course Store",
     courseDetail: "Course Detail",
@@ -671,6 +674,48 @@ function Messages() {
   );
 }
 
+function Login({ role, setRole, setScreen }: { role: Role; setRole: (role: Role) => void; setScreen: (screen: Screen) => void }) {
+  return (
+    <section className="login">
+      <div className="login-hero" style={{ backgroundImage: `linear-gradient(180deg, rgba(8,9,16,.18), rgba(8,9,16,.94)), url(${heroImage})` }}>
+        <Pill tone="hot">Basketball Camp</Pill>
+        <h2>Welcome back to training.</h2>
+        <p>Sign in to view classes, training tasks, video analysis, and coach feedback.</p>
+      </div>
+      <div className="signup-role-grid" aria-label="Sign in role">
+        {roles.map((item) => (
+          <button
+            className={item.id === role ? "selected" : ""}
+            key={item.id}
+            onClick={() => setRole(item.id)}
+            type="button"
+          >
+            <strong>{item.label}</strong>
+            <span>{item.sub}</span>
+          </button>
+        ))}
+      </div>
+      <div className="form-stack">
+        <MobileTextField id="login-email" label="Email or phone" placeholder="alex@example.com" />
+        <MobileTextField id="login-password" label="Password" placeholder="Enter password" />
+        <div className="login-options">
+          <label>
+            <input defaultChecked type="checkbox" />
+            <span>Remember me</span>
+          </label>
+          <button type="button">Forgot password?</button>
+        </div>
+      </div>
+      <ActionButton icon={PersonIcon} onClick={() => setScreen(role === "coach" ? "coachToday" : role === "admin" ? "admin" : "home")}>
+        Sign In
+      </ActionButton>
+      <button className="signin-link" onClick={() => setScreen("register")} type="button">
+        New to Basketball Camp? Create an account
+      </button>
+    </section>
+  );
+}
+
 function Register({ role, setRole, setScreen }: { role: Role; setRole: (role: Role) => void; setScreen: (screen: Screen) => void }) {
   return (
     <section className="register">
@@ -708,7 +753,7 @@ function Register({ role, setRole, setScreen }: { role: Role; setRole: (role: Ro
       <ActionButton icon={CheckCircledIcon} onClick={() => setScreen(role === "coach" ? "coachToday" : role === "admin" ? "admin" : "home")}>
         Create Account
       </ActionButton>
-      <button className="signin-link" onClick={() => setScreen("profile")} type="button">
+      <button className="signin-link" onClick={() => setScreen("login")} type="button">
         Already have an account? Sign in
       </button>
     </section>
@@ -737,19 +782,21 @@ function Profile({ role, setScreen }: { role: Role; setScreen: (screen: Screen) 
 
 export default function Prototype() {
   const [role, setRole] = useState<Role>("student");
-  const [screen, setScreen] = useState<Screen>("home");
+  const [screen, setScreen] = useState<Screen>("login");
 
   const activeTab: Tab = useMemo(() => {
     if (["courses", "courseDetail", "checkout"].includes(screen)) return "courses";
     if (["train", "taskDetail", "upload", "analysis"].includes(screen)) return "train";
     if (["report", "history", "review"].includes(screen)) return "reports";
-    if (["profile", "messages", "register"].includes(screen)) return "profile";
+    if (["profile", "messages", "register", "login"].includes(screen)) return "profile";
     return "home";
   }, [screen]);
 
   const visibleScreens = screensByRole[role];
+  const isAuthScreen = screen === "login" || screen === "register";
 
   const content = (() => {
+    if (screen === "login") return <Login role={role} setRole={setRole} setScreen={setScreen} />;
     if (role === "coach" && screen === "home") return <CoachToday setScreen={setScreen} />;
     if (role === "admin" && screen === "home") return <AdminDashboard setScreen={setScreen} />;
     switch (screen) {
@@ -799,19 +846,23 @@ export default function Prototype() {
   return (
     <div className="app-shell">
       <MobileScroll className="app-screen">
-        <Header role={role} screen={screen} setScreen={setScreen} />
-        <RoleRail role={role} setRole={setRole} setScreen={setScreen} />
-        <Carousel ariaLabel="Prototype pages" className="screen-carousel" contentClassName="screen-track">
-          {visibleScreens.map((item) => (
-            <button className={screen === item ? "screen-chip active" : "screen-chip"} key={item} onClick={() => setScreen(item)} type="button">
-              {pageTitle(item, role)}
-            </button>
-          ))}
-        </Carousel>
-        <main className="screen-content" data-testid="basketball-prototype">
+        {isAuthScreen ? null : (
+          <>
+            <Header role={role} screen={screen} setScreen={setScreen} />
+            <RoleRail role={role} setRole={setRole} setScreen={setScreen} />
+            <Carousel ariaLabel="Prototype pages" className="screen-carousel" contentClassName="screen-track">
+              {visibleScreens.map((item) => (
+                <button className={screen === item ? "screen-chip active" : "screen-chip"} key={item} onClick={() => setScreen(item)} type="button">
+                  {pageTitle(item, role)}
+                </button>
+              ))}
+            </Carousel>
+          </>
+        )}
+        <main className={isAuthScreen ? "screen-content auth-content" : "screen-content"} data-testid="basketball-prototype">
           {content}
         </main>
-        <BottomNav active={activeTab} setScreen={setScreen} />
+        {isAuthScreen ? null : <BottomNav active={activeTab} setScreen={setScreen} />}
       </MobileScroll>
     </div>
   );
