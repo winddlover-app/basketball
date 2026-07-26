@@ -681,26 +681,13 @@ function Messages() {
   );
 }
 
-function Login({ role, setRole, setScreen }: { role: Role; setRole: (role: Role) => void; setScreen: (screen: Screen) => void }) {
+function Login({ setScreen }: { setScreen: (screen: Screen) => void }) {
   return (
     <section className="login">
       <div className="login-hero" style={{ backgroundImage: `linear-gradient(180deg, rgba(8,9,16,.18), rgba(8,9,16,.94)), url(${heroImage})` }}>
         <Pill tone="hot">Basketball Camp</Pill>
         <h2>Welcome back to training.</h2>
         <p>Sign in to view classes, training tasks, video analysis, and coach feedback.</p>
-      </div>
-      <div className="signup-role-grid" aria-label="Sign in role">
-        {roles.map((item) => (
-          <button
-            className={item.id === role ? "selected" : ""}
-            key={item.id}
-            onClick={() => setRole(item.id)}
-            type="button"
-          >
-            <strong>{item.label}</strong>
-            <span>{item.sub}</span>
-          </button>
-        ))}
       </div>
       <div className="form-stack">
         <MobileTextField id="login-email" label="Email or phone" placeholder="alex@example.com" />
@@ -713,7 +700,7 @@ function Login({ role, setRole, setScreen }: { role: Role; setRole: (role: Role)
           <button type="button">Forgot password?</button>
         </div>
       </div>
-      <ActionButton icon={PersonIcon} onClick={() => setScreen(landingForRole(role))}>
+      <ActionButton icon={PersonIcon} onClick={() => setScreen("home")}>
         Sign In
       </ActionButton>
       <button className="signin-link" onClick={() => setScreen("register")} type="button">
@@ -819,7 +806,7 @@ export default function Prototype() {
   const isAuthScreen = screen === "login" || screen === "register";
 
   const content = (() => {
-    if (screen === "login") return <Login role={role} setRole={setRole} setScreen={setScreen} />;
+    if (screen === "login") return <Login setScreen={setScreen} />;
     if (role === "coach" && screen === "home") return <CoachToday setScreen={setScreen} />;
     if (role === "admin" && screen === "home") return <AdminDashboard setScreen={setScreen} />;
     switch (screen) {

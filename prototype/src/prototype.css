@@ -746,6 +746,7 @@ button {
 
 .login {
   align-content: center;
+  gap: 14px;
 }
 
 .login-hero {
@@ -753,7 +754,7 @@ button {
   background-size: cover;
   display: grid;
   gap: 10px;
-  min-height: 292px;
+  min-height: 320px;
   align-content: end;
 }
 
