@@ -18,3 +18,10 @@ Thumbs.db
 
 # Local nested repository backup created during publishing
 prototype/.git_sites_backup/
+
+# Web prototype local outputs
+web-prototype/node_modules/
+web-prototype/dist/
+web-prototype/*-preview*.png
+web-prototype/*-final*.png
+.gh-pages-worktree/
