@@ -1,0 +1,27 @@
+{
+  "name": "basketball-camp-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tanstack/vue-table": "^8.21.3",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vee-validate/yup": "^4.15.1",
+    "axios": "^1.19.0",
+    "element-plus": "^2.11.10",
+    "lucide-vue-next": "^0.468.0",
+    "pinia": "^4.0.2",
+    "vee-validate": "^4.15.1",
+    "vue": "^3.5.40",
+    "vue-router": "^4.6.3",
+    "yup": "^1.7.1"
+  },
+  "devDependencies": {
+    "vite": "^8.2.0"
+  }
+}
