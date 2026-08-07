@@ -1,6 +1,7 @@
 <script setup>
+import { onMounted, shallowRef } from 'vue'
 import DataTablePage from '@/components/ui/DataTablePage.vue'
-import { getVideoQueue } from '@/services/mockApi'
+import { adminService } from '@/services/adminService'
 
 const columns = [
   { label: 'Video ID', prop: 'id' },
@@ -10,8 +11,17 @@ const columns = [
   { label: 'AI Status', prop: 'aiStatus', status: true },
   { label: 'Reviewer', prop: 'reviewer' },
 ]
+
+const rows = shallowRef([])
+const loading = shallowRef(false)
+
+onMounted(async () => {
+  loading.value = true
+  rows.value = await adminService.videoAiQueue()
+  loading.value = false
+})
 </script>
 
 <template>
-  <DataTablePage eyebrow="Video/AI Queue" title="Video upload and AI analysis queue" text="Monitor upload progress, async AI processing, reviewer assignment, and stuck jobs." :columns="columns" :rows="getVideoQueue()" />
+  <DataTablePage eyebrow="Video/AI Queue" title="Video upload and AI analysis queue" text="Monitor upload progress, async AI processing, reviewer assignment, and stuck jobs." :columns="columns" :rows="rows" :loading="loading" />
 </template>

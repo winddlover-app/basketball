@@ -22,8 +22,8 @@ const { value: name } = useField('name')
 const { value: email } = useField('email')
 const { value: password } = useField('password')
 
-const submit = handleSubmit((values) => {
-  auth.register(values)
+const submit = handleSubmit(async (values) => {
+  await auth.register(values)
   router.push(auth.homeRoute)
 })
 </script>

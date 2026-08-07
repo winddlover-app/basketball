@@ -1,9 +1,14 @@
 <script setup>
+import { onMounted, shallowRef } from 'vue'
 import PageHeader from '@/components/ui/PageHeader.vue'
 import StatusTag from '@/components/ui/StatusTag.vue'
-import { getCourses } from '@/services/mockApi'
+import { studentService } from '@/services/studentService'
 
-const courses = getCourses()
+const courses = shallowRef([])
+
+onMounted(async () => {
+  courses.value = await studentService.courses()
+})
 </script>
 
 <template>

@@ -23,8 +23,8 @@ const { value: email } = useField('email')
 const { value: password } = useField('password')
 const { value: remember } = useField('remember')
 
-const submit = handleSubmit((values) => {
-  auth.signIn(values)
+const submit = handleSubmit(async (values) => {
+  await auth.signIn(values)
   router.push(route.query.redirect || auth.homeRoute)
 })
 </script>

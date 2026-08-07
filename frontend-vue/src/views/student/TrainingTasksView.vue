@@ -1,6 +1,7 @@
 <script setup>
+import { onMounted, shallowRef } from 'vue'
 import DataTablePage from '@/components/ui/DataTablePage.vue'
-import { getTasks } from '@/services/mockApi'
+import { studentService } from '@/services/studentService'
 
 const columns = [
   { label: 'Task', prop: 'title' },
@@ -9,6 +10,15 @@ const columns = [
   { label: 'AI Status', prop: 'aiStatus', status: true },
   { label: 'Coach Status', prop: 'coachStatus', status: true },
 ]
+
+const rows = shallowRef([])
+const loading = shallowRef(false)
+
+onMounted(async () => {
+  loading.value = true
+  rows.value = await studentService.tasks()
+  loading.value = false
+})
 </script>
 
 <template>
@@ -17,6 +27,7 @@ const columns = [
     title="Track assigned homework"
     text="Each task can require a training video, AI analysis, and coach-approved feedback."
     :columns="columns"
-    :rows="getTasks()"
+    :rows="rows"
+    :loading="loading"
   />
 </template>

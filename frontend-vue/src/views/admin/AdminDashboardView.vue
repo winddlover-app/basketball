@@ -1,15 +1,23 @@
 <script setup>
+import { onMounted, shallowRef } from 'vue'
 import { RouterLink } from 'vue-router'
 import { CalendarRange, CreditCard } from 'lucide-vue-next'
 import PageHeader from '@/components/ui/PageHeader.vue'
 import MetricCards from '@/components/ui/MetricCards.vue'
 import TrendBars from '@/components/ui/TrendBars.vue'
 import StatusTag from '@/components/ui/StatusTag.vue'
-import { getDashboardMetrics, getEnrollments, getVideoQueue } from '@/services/mockApi'
+import { adminService } from '@/services/adminService'
 
-const metrics = getDashboardMetrics('admin')
-const enrollments = getEnrollments()
-const videoQueue = getVideoQueue()
+const metrics = shallowRef([])
+const enrollments = shallowRef([])
+const videoQueue = shallowRef([])
+
+onMounted(async () => {
+  const data = await adminService.dashboard()
+  metrics.value = data.metrics || []
+  enrollments.value = data.enrollments || []
+  videoQueue.value = data.videoQueue || []
+})
 </script>
 
 <template>

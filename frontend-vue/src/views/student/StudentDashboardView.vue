@@ -1,16 +1,26 @@
 <script setup>
+import { onMounted, shallowRef } from 'vue'
 import { RouterLink } from 'vue-router'
 import { CalendarDays, MessageSquareText, UploadCloud } from 'lucide-vue-next'
 import PageHeader from '@/components/ui/PageHeader.vue'
 import MetricCards from '@/components/ui/MetricCards.vue'
 import TrendBars from '@/components/ui/TrendBars.vue'
 import StatusTag from '@/components/ui/StatusTag.vue'
-import { getDashboardMetrics, getTasks, getReports } from '@/services/mockApi'
+import { studentService } from '@/services/studentService'
 import { youthImage } from '@/mocks/campData'
 
-const metrics = getDashboardMetrics('student')
-const tasks = getTasks()
-const reports = getReports()
+const metrics = shallowRef([])
+const tasks = shallowRef([])
+const reports = shallowRef([])
+const nextClass = shallowRef(null)
+
+onMounted(async () => {
+  const data = await studentService.dashboard()
+  metrics.value = data.metrics || []
+  tasks.value = data.activeTasks || []
+  reports.value = data.latestReports || []
+  nextClass.value = data.nextClass
+})
 </script>
 
 <template>
@@ -28,8 +38,8 @@ const reports = getReports()
     <section class="hero-panel">
       <div>
         <p class="eyebrow">Next Class</p>
-        <h2>U12 Skills Development</h2>
-        <p>Today 5:30 PM at Court A with Coach Miller. Bring water, indoor shoes, and last week's dribbling video.</p>
+        <h2>{{ nextClass?.className || 'No upcoming class' }}</h2>
+        <p>{{ nextClass ? `${nextClass.sessionDate} ${nextClass.startTime} with ${nextClass.coach}` : 'Your schedule will appear here after enrollment.' }}</p>
         <div class="quick-row">
           <span><CalendarDays :size="17" /> Homework due Friday</span>
           <span><MessageSquareText :size="17" /> 2 coach notes unread</span>

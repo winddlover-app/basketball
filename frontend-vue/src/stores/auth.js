@@ -1,16 +1,10 @@
 import { defineStore } from 'pinia'
+import { authService } from '@/services/authService'
 
 const roleHome = {
   student: '/student/dashboard',
   coach: '/coach/dashboard',
   admin: '/admin/dashboard',
-}
-
-function inferRoleFromEmail(email) {
-  const normalized = email.trim().toLowerCase()
-  if (normalized.includes('admin')) return 'admin'
-  if (normalized.includes('coach')) return 'coach'
-  return 'student'
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -31,28 +25,36 @@ export const useAuthStore = defineStore('auth', {
     initials: (state) => state.profileName.split(' ').map((part) => part[0]).join('').slice(0, 2).toUpperCase(),
   },
   actions: {
-    signIn({ email, remember }) {
-      this.email = email
-      this.role = inferRoleFromEmail(email)
-      this.profileName = this.role === 'coach' ? 'Coach Miller' : this.role === 'admin' ? 'Taylor Admin' : 'Alex Morgan'
-      this.token = `mock-token-${Date.now()}`
+    persistSession(remember = true) {
+      if (!remember) return
 
-      if (remember) {
-        localStorage.setItem('bc_token', this.token)
-        localStorage.setItem('bc_email', this.email)
-        localStorage.setItem('bc_role', this.role)
-        localStorage.setItem('bc_name', this.profileName)
-      }
-    },
-    register({ name, email }) {
-      this.email = email
-      this.role = 'student'
-      this.profileName = name
-      this.token = `mock-token-${Date.now()}`
       localStorage.setItem('bc_token', this.token)
       localStorage.setItem('bc_email', this.email)
       localStorage.setItem('bc_role', this.role)
       localStorage.setItem('bc_name', this.profileName)
+    },
+    applyAuthResult(result, remember = true) {
+      this.token = result.token
+      this.email = result.user.email
+      this.role = result.user.role
+      this.profileName = result.user.name
+      this.persistSession(remember)
+    },
+    async signIn(values) {
+      const result = await authService.login(values)
+      this.applyAuthResult(result, values.remember)
+    },
+    async register(values) {
+      const result = await authService.register(values)
+      this.applyAuthResult(result, true)
+    },
+    async loadMe() {
+      if (!this.token) return
+      const user = await authService.me()
+      this.email = user.email
+      this.role = user.role
+      this.profileName = user.name
+      this.persistSession(true)
     },
     signOut() {
       this.token = ''

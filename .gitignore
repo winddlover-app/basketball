@@ -25,3 +25,14 @@ web-prototype/dist/
 web-prototype/*-preview*.png
 web-prototype/*-final*.png
 .gh-pages-worktree/
+
+# Vue frontend local outputs
+frontend-vue/node_modules/
+frontend-vue/dist/
+
+# .NET backend local outputs
+backend-dotnet/**/bin/
+backend-dotnet/**/obj/
+backend-dotnet/**/appsettings.Development.json
+*.user
+*.suo

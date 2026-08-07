@@ -1,6 +1,7 @@
 <script setup>
+import { onMounted, shallowRef } from 'vue'
 import DataTablePage from '@/components/ui/DataTablePage.vue'
-import { getStudents } from '@/services/mockApi'
+import { coachService } from '@/services/coachService'
 
 const columns = [
   { label: 'Student', prop: 'name' },
@@ -10,8 +11,17 @@ const columns = [
   { label: 'Training Focus', prop: 'focus' },
   { label: 'Status', prop: 'status', status: true },
 ]
+
+const rows = shallowRef([])
+const loading = shallowRef(false)
+
+onMounted(async () => {
+  loading.value = true
+  rows.value = await coachService.roster(1)
+  loading.value = false
+})
 </script>
 
 <template>
-  <DataTablePage eyebrow="Class Roster" title="Student list with readiness signals" text="Scan attendance history, current focus, and recent progress before class." :columns="columns" :rows="getStudents()" />
+  <DataTablePage eyebrow="Class Roster" title="Student list with readiness signals" text="Scan attendance history, current focus, and recent progress before class." :columns="columns" :rows="rows" :loading="loading" />
 </template>

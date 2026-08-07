@@ -11,6 +11,7 @@ const props = defineProps({
   columns: { type: Array, required: true },
   rows: { type: Array, required: true },
   primaryAction: { type: String, default: '' },
+  loading: { type: Boolean, default: false },
 })
 
 const query = shallowRef('')
@@ -67,7 +68,7 @@ const pagedRows = computed(() => {
         </el-select>
       </div>
 
-      <el-table :data="pagedRows" stripe height="520" empty-text="No records found">
+      <el-table v-loading="loading" :data="pagedRows" stripe height="520" empty-text="No records found">
         <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label" min-width="150">
           <template #default="{ row }">
             <StatusTag v-if="column.status" :value="row[column.prop]" />

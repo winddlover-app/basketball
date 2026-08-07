@@ -1,8 +1,17 @@
 <script setup>
+import { onMounted, shallowRef } from 'vue'
 import PageHeader from '@/components/ui/PageHeader.vue'
-import { getStudents } from '@/services/mockApi'
+import { coachService } from '@/services/coachService'
 
-const students = getStudents()
+const students = shallowRef([])
+
+onMounted(async () => {
+  const rows = await coachService.attendance(1)
+  students.value = rows.map((student) => ({
+    ...student,
+    attendance: student.attendanceStatus === 'Pending' ? 'Present' : student.attendanceStatus,
+  }))
+})
 </script>
 
 <template>

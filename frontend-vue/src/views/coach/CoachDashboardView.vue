@@ -1,13 +1,20 @@
 <script setup>
+import { onMounted, shallowRef } from 'vue'
 import { RouterLink } from 'vue-router'
 import { ClipboardCheck, ShieldCheck } from 'lucide-vue-next'
 import PageHeader from '@/components/ui/PageHeader.vue'
 import MetricCards from '@/components/ui/MetricCards.vue'
 import StatusTag from '@/components/ui/StatusTag.vue'
-import { getDashboardMetrics, getVideoQueue } from '@/services/mockApi'
+import { coachService } from '@/services/coachService'
 
-const metrics = getDashboardMetrics('coach')
-const queue = getVideoQueue()
+const metrics = shallowRef([])
+const queue = shallowRef([])
+
+onMounted(async () => {
+  const data = await coachService.dashboard()
+  metrics.value = data.metrics || []
+  queue.value = data.reviewQueue || []
+})
 </script>
 
 <template>

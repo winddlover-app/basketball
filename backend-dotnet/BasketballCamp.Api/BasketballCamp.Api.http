@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:5088/api
+@studentToken = dev-1-student
+@coachToken = dev-3-coach
+@adminToken = dev-5-admin
+
+GET {{baseUrl}}/health
+
+###
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "alex@example.com",
+  "password": "camp123",
+  "remember": true
+}
+
+###
+GET {{baseUrl}}/student/dashboard
+Authorization: Bearer {{studentToken}}
+
+###
+GET {{baseUrl}}/coach/dashboard
+Authorization: Bearer {{coachToken}}
+
+###
+GET {{baseUrl}}/admin/dashboard
+Authorization: Bearer {{adminToken}}
+
+###
+GET {{baseUrl}}/admin/video-ai-queue
+Authorization: Bearer {{adminToken}}
